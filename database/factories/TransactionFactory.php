@@ -23,6 +23,7 @@ class TransactionFactory extends Factory
             'amount'   => $this->faker->randomFloat(2, 100, 10000), // Amount in dollars
             'currency' => $this->faker->randomElement(['USD', 'EUR', 'BRL']),
             'status'   => \App\Enums\TransactionStatus::PENDING->value,
+            'location' => $this->faker->city, // Assuming location is a city name
         ];
     }
 
