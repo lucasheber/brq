@@ -15,7 +15,7 @@ describe('Transaction Model', function (): void {
     });
 
     it('should fail with invalid amount', function (): void {
-        expect(function () {
+        expect(function (): void {
             $transaction = new App\Models\Transaction();
             $transaction->amount = -50.00; // Set negative amount
         })->toThrow(\InvalidArgumentException::class, 'Amount must be a positive value.');
