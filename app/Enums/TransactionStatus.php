@@ -12,6 +12,5 @@ enum TransactionStatus: string
     case FAILED     = 'failed';
     case REFUNDED   = 'refunded';
     case CANCELLED  = 'cancelled';
-    case HIGH_RISK  = 'high_risk';
     case CHARGEBACK = 'chargeback';
 }

@@ -17,7 +17,7 @@ return new class () extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             // Uncomment the following line if you have a user_id foreign key
-            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('document');
             $table->integer('amount')->unsigned();
             $table->string('currency', 3);
