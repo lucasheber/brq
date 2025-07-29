@@ -34,5 +34,5 @@ interface TransactionRepositoryInterface
     /**
      * Delete a transaction by ID.
      */
-    public function delete(int $id): bool;
+    public function delete(int $id): int | false;
 }

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Repositories\Transaction;
 
+use Illuminate\Support\Facades\Auth;
+
 class TransactionRepository implements TransactionRepositoryInterface
 {
     /**
@@ -19,7 +21,7 @@ class TransactionRepository implements TransactionRepositoryInterface
      */
     public function create(array $data): \App\Models\Transaction
     {
-        return \App\Models\Transaction::create($data);
+        return Auth::user()->transactions()->create($data);
     }
 
     /**
@@ -27,7 +29,9 @@ class TransactionRepository implements TransactionRepositoryInterface
      */
     public function find(int $id): ?\App\Models\Transaction
     {
-        return \App\Models\Transaction::find($id);
+        return \App\Models\Transaction::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->first();
     }
 
     /**
@@ -69,7 +73,7 @@ class TransactionRepository implements TransactionRepositoryInterface
     /**
      * Delete a transaction by ID.
      */
-    public function delete(int $id): bool
+    public function delete(int $id): int | false
     {
         $transaction = $this->find($id);
 
