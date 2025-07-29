@@ -37,7 +37,10 @@ describe('Transaction Table', function (): void {
 
     it('should find a transaction by ID', function (): void {
         // Seed the database with a transaction first
+        $user = App\Models\User::factory()->create();
+
         App\Models\Transaction::create([
+            'user_id' => $user->id,
             'document' => 'doc123',
             'amount' => 100.12, // Set amount in dollars
             'currency' => 'USD',
