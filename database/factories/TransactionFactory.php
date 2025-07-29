@@ -19,11 +19,12 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'document' => $this->faker->randomElement([$this->cpf(), $this->cnpj()]),
-            'amount'   => $this->faker->randomFloat(2, 100, 10000), // Amount in dollars
-            'currency' => $this->faker->randomElement(['USD', 'EUR', 'BRL']),
-            'status'   => \App\Enums\TransactionStatus::PENDING->value,
-            'location' => $this->faker->city, // Assuming location is a city name
+            'document'   => $this->faker->randomElement([$this->cpf(), $this->cnpj()]),
+            'amount'     => $this->faker->randomFloat(2, 100, 10000), // Amount in dollars
+            'currency'   => $this->faker->randomElement(['USD', 'EUR', 'BRL']),
+            'status'     => $this->faker->randomElement(\App\Enums\TransactionStatus::cases())->value,
+            'location'   => $this->faker->city, // Assuming location is a city name
+            'created_at' => $this->faker->dateTimeBetween('-10 days', 'now'),
         ];
     }
 
