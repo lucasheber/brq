@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Http\Controllers\Api;
 
@@ -17,7 +17,8 @@ class TransactionController extends Controller
      */
     public function __construct(
         private readonly TransactionRepository $transactionRepository
-    ) {}
+    ) {
+    }
 
     public function index(Request $request)
     {
