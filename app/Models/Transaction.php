@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Models;
 
+use App\Enums\RiskStatus;
 use App\Enums\TransactionStatus;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,7 +46,8 @@ class Transaction extends Model
     public function casts(): array
     {
         return [
-            'status' => TransactionStatus::class,
+            'status'               => TransactionStatus::class,
+            'risk_analysis_status' => RiskStatus::class,
         ];
     }
 }
