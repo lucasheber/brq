@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configModels();
+        $this->configObservers();
     }
 
     private function configModels(): void
@@ -35,5 +36,11 @@ class AppServiceProvider extends ServiceProvider
 
         // Make strict mode the default for all models
         Model::shouldBeStrict();
+    }
+
+    private function configObservers(): void
+    {
+        // Register the TransactionObserver
+        \App\Models\Transaction::observe(\App\Observers\TransactionObserver::class);
     }
 }
