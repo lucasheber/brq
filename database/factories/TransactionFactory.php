@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id'    => $this->faker->randomElement(User::pluck('id')->toArray()),
             'document'   => $this->faker->randomElement([$this->cpf(), $this->cnpj()]),
             'amount'     => $this->faker->randomFloat(2, 100, 10000), // Amount in dollars
             'currency'   => $this->faker->randomElement(['USD', 'EUR', 'BRL']),
