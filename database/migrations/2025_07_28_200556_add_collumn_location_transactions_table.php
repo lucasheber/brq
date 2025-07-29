@@ -14,7 +14,10 @@ return new class () extends Migration
     public function up(): void
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->string('location')->nullable()->after('motivation');
+            $table->string('location')
+                ->nullable()
+                ->after('reason')
+                ->comment('Location of the transaction');
         });
     }
 
