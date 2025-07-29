@@ -10,13 +10,14 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
+  "email": "reichel.aurelia@example.net",
   "password": "password"
 }
 
 ###
 
 @token = {{login.response.body.access_token}}
+@userId = {{login.response.body.user.id}}
 
 ###
 
@@ -48,10 +49,10 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "amount": "ivalid",
-  "document": "",
+  "amount": 1009.00,
+  "document": "1234567890",
   "currency": "USD",
-  "status": "completed"
+  "created_at": "2023-10-01T01:00:00Z"
 }
 
 
