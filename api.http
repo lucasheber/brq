@@ -1,0 +1,63 @@
+# variables
+@baseUrl = http://brq.test/api
+
+###
+
+# Login
+# @name login
+POST {{baseUrl}}/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password"
+}
+
+###
+
+@token = {{login.response.body.access_token}}
+
+###
+
+# Get user profile
+GET {{baseUrl}}/user
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+# Get all transactions
+GET {{baseUrl}}/transactions
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+# Get a specific transaction
+GET {{baseUrl}}/transactions/3
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+# Create a new transaction
+POST {{baseUrl}}/transactions
+Authorization: Bearer {{token}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "amount": "ivalid",
+  "document": "",
+  "currency": "USD",
+  "status": "completed"
+}
+
+
+###
+# Filter transactions by date
+GET {{baseUrl}}/transactions?start_date=invalid&end_date=invalid
+Authorization: Bearer {{token}}
+Accept: application/json
+
