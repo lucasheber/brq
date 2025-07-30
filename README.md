@@ -180,13 +180,16 @@ composer test
 
 ## 📝 Exemplos de Uso da API
 
+### Usuário Padrão
+O sistema cria um usuário padrão chamado "BRQ" com email `brq@example.com` e senha `password`.
+
 ### 1. Fazer Login
 
 ```bash
 curl -X POST http://localhost:8000/api/login \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "user@example.com",
+    "email": "brq@example.com",
     "password": "password"
   }'
 ```
