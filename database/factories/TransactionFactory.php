@@ -24,7 +24,7 @@ class TransactionFactory extends Factory
             'document'   => $this->faker->randomElement([$this->cpf(), $this->cnpj()]),
             'amount'     => $this->faker->randomFloat(2, 100, 10000), // Amount in dollars
             'description' => $this->faker->sentence, // New description field
-            'currency'   => $this->faker->randomElement(['USD', 'EUR', 'BRL']),
+            // 'currency'   => $this->faker->randomElement(['USD', 'EUR', 'BRL']), // BRL is the default currency
             'status'     => $this->faker->randomElement(\App\Enums\TransactionStatus::cases())->value,
             'location'   => $this->faker->city, // Assuming location is a city name
             'created_at' => $this->faker->dateTimeBetween('-10 days', 'now'),
