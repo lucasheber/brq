@@ -21,7 +21,7 @@ services:
       - DB_CONNECTION=mysql
       - DB_HOST=brq-mysql
       - DB_DATABASE=brq
-      - DB_USERNAME=root
+      - DB_USERNAME=brq
       - DB_PASSWORD=secret
     depends_on:
       - redis
