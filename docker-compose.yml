@@ -23,6 +23,7 @@ services:
       - DB_DATABASE=brq
       - DB_USERNAME=brq
       - DB_PASSWORD=secret
+      - REDIS_HOST=brq-redis
     depends_on:
       - redis
 
