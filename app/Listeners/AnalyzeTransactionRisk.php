@@ -17,6 +17,8 @@ class AnalyzeTransactionRisk implements ShouldQueue
 
     public string $queue = 'risk-analysis';
 
+    public int $delay = 60; // Delay in seconds
+
     public function __construct(private RiskAnalysisService $risk)
     {
     }

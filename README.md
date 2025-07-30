@@ -183,6 +183,9 @@ composer test
 ### Usuário Padrão
 O sistema cria um usuário padrão chamado "BRQ" com email `brq@example.com` e senha `password`.
 
+### Observações
+- O evento `AnalyzeTransactionRisk` está com delay de 60 segundos. Portanto, as análises de risco serão processadas após esse período.
+
 ### 1. Fazer Login
 
 ```bash
