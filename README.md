@@ -1,61 +1,322 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BRQ - Sistema de Transações
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Desafio técnico para gerenciamento de transações financeiras com análise de risco
 
-## About Laravel
+## 📋 Sobre o Projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este projeto é uma API RESTful desenvolvida em Laravel para gerenciar transações financeiras com sistema de autenticação e análise de risco. O sistema permite criar, visualizar, atualizar e excluir transações, além de fornecer autenticação via API tokens.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Tecnologias Utilizadas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP 8.2+**
+- **Laravel 12.x**
+- **MySQL** (banco de dados principal)
+- **Laravel Sanctum** (autenticação API)
+- **Pest PHP** (testes)
+- **Laravel Pint** (code style)
+- **PHP CS Fixer** (formatação de código)
+- **Docker & Docker Compose** (containerização)
 
-## Learning Laravel
+## 📁 Estrutura do Projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+brq/
+├── app/
+│   ├── Http/Controllers/Api/
+│   │   ├── LoginController.php      # Autenticação
+│   │   └── TransactionController.php # CRUD de transações
+│   ├── Models/
+│   │   ├── User.php                 # Model do usuário
+│   │   └── Transaction.php          # Model da transação
+│   └── Enums/
+│       └── TransactionStatus.php    # Status das transações
+├── database/
+│   ├── migrations/                  # Migrações do banco
+│   ├── factories/                   # Factories para testes
+│   └── seeders/                     # Seeders
+├── tests/                          # Testes automatizados
+├── docker/                         # Configurações Docker
+└── routes/api.php                  # Rotas da API
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🔗 Endpoints da API
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🔐 Autenticação
 
-## Laravel Sponsors
+| Método | Endpoint      | Descrição           | Middleware |
+|--------|---------------|---------------------|------------|
+| POST   | `/api/login`  | Fazer login         | guest      |
+| POST   | `/api/logout` | Fazer logout        | guest      |
+| GET    | `/api/user`   | Dados do usuário    | auth       |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 💰 Transações
 
-### Premium Partners
+| Método | Endpoint                    | Descrição                | Middleware |
+|--------|-----------------------------|--------------------------|------------|
+| GET    | `/api/transactions`         | Listar transações        | auth       |
+| POST   | `/api/transactions`         | Criar transação          | auth       |
+| GET    | `/api/transactions/{id}`    | Visualizar transação     | auth       |
+| PUT    | `/api/transactions/{id}`    | Atualizar transação      | auth       |
+| DELETE | `/api/transactions/{id}`    | Excluir transação        | auth       |
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🐳 Executando com Docker
 
-## Contributing
+### Pré-requisitos
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Docker
+- Docker Compose
 
-## Code of Conduct
+### 1. Clone o repositório
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone <repository-url>
+cd brq
+```
 
-## Security Vulnerabilities
+### 2. Configure o ambiente
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+### 3. Construa e execute os containers
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Construir as imagens
+docker-compose build
+
+# Executar os containers
+docker-compose up -d
+```
+
+### 4. Configure a aplicação
+
+```bash
+# Gerar chave da aplicação
+docker-compose exec app php artisan key:generate
+
+# Executar migrações
+docker-compose exec app php artisan migrate
+
+# Executar seeders (opcional)
+docker-compose exec app php artisan db:seed
+```
+
+### 5. Acesse a aplicação
+
+- **API**: http://localhost:8000
+- **MySQL**: localhost:3306
+- **Redis**: localhost:6379
+
+## 💻 Executando Localmente (sem Docker)
+
+### Pré-requisitos
+
+- PHP 8.2+
+- Composer
+- MySQL
+
+### 1. Instale as dependências
+
+```bash
+composer install
+```
+
+### 2. Configure o ambiente
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 3. Configure o banco de dados
+
+```bash
+
+# Executar migrações
+php artisan migrate
+
+# Executar seeders (opcional)
+php artisan db:seed
+```
+
+### 4. Execute a aplicação
+
+```bash
+# Servidor de desenvolvimento
+php artisan serve
+
+# Ou usando o script customizado
+composer run dev
+```
+
+## 🧪 Executando Testes
+
+### Com Docker
+
+```bash
+# Executar todos os testes
+docker-compose exec app php artisan test
+
+# Executar testes com Pest
+docker-compose exec app ./vendor/bin/pest
+```
+
+### Localmente
+
+```bash
+# Executar todos os testes
+php artisan test
+
+# Executar testes com Pest
+./vendor/bin/pest
+
+# Executar com o script do composer
+composer test
+```
+
+## 📝 Exemplos de Uso da API
+
+### 1. Fazer Login
+
+```bash
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password"
+  }'
+```
+
+**Resposta:**
+```json
+{
+  "token": "1|abc123...",
+  "user": {
+    "id": 1,
+    "name": "User Name",
+    "email": "user@example.com"
+  }
+}
+```
+
+### 2. Criar Transação
+
+```bash
+curl -X POST http://localhost:8000/api/transactions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 1|abc123..." \
+  -d '{
+    "amount": 100.50,
+    "description": "Compra online",
+    "document": "11.222.333/0001-44",
+    "location": "São Paulo, SP"
+  }'
+```
+
+### 3. Listar Transações
+
+```bash
+curl -X GET http://localhost:8000/api/transactions \
+  -H "Authorization: Bearer 1|abc123..."
+```
+
+## 🔧 Scripts Disponíveis
+
+```bash
+# Desenvolvimento com hot-reload
+composer run dev
+
+# Executar testes
+composer test
+
+# Formatação de código
+./vendor/bin/pint
+
+# Análise de código
+./vendor/bin/rector
+```
+
+## 🌐 Variáveis de Ambiente
+
+Principais variáveis de ambiente:
+
+```env
+APP_NAME=BRQ
+APP_ENV=local
+APP_KEY=base64:...
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_DATABASE=brq
+DB_USERNAME=root
+DB_PASSWORD=
+
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+```
+
+## 📊 Análise de Risco
+
+O sistema inclui análise de risco automática para transações, considerando:
+
+- Valor da transação
+- Localização geográfica
+- Histórico do usuário
+- Padrões de comportamento
+
+## 🔒 Autenticação
+
+O sistema utiliza Laravel Sanctum para autenticação via API tokens:
+
+- Tokens são gerados no login
+- Tokens são revogados no logout
+- Middleware `auth:sanctum` protege rotas sensíveis
+
+## 🐛 Debug e Logs
+
+```bash
+# Visualizar logs em tempo real (com Docker)
+docker-compose exec app php artisan pail
+
+# Limpar caches
+docker-compose exec app php artisan config:clear
+docker-compose exec app php artisan cache:clear
+docker-compose exec app php artisan route:clear
+```
+
+## 📈 Performance
+
+- Cache Redis configurado
+- Otimização de queries com Eloquent
+- Background jobs para processamento assíncrono
+- Indexação adequada no banco de dados
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feat/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'feat(api): add nova feature'`)
+4. Push para a branch (`git push origin feat/nova-feature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 📞 Suporte
+
+Para dúvidas ou suporte, entre em contato:
+
+- **Email**: lucas.heber07@gmail.com
+- **GitHub**: @lucasheber
+
+---
+
+⚡ **Desenvolvido com Laravel + Docker para máxima performance e escalabilidade**

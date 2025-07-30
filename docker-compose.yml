@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: brq-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - brq-network
+    ports:
+      - "8000:80"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/html/database/database.sqlite
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: brq-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - brq-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: brq-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: brq
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: brq
+      MYSQL_PASSWORD: secret
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - brq-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  brq-network:
+    driver: bridge
