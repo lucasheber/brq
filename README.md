@@ -92,6 +92,9 @@ docker-compose up -d
 ### 4. Configure a aplicação
 
 ```bash
+# Atualizando as dependências
+docker-compose exec app composer install
+
 # Gerar chave da aplicação
 docker-compose exec app php artisan key:generate
 
