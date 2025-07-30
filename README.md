@@ -180,6 +180,9 @@ composer test
 
 ## 📝 Exemplos de Uso da API
 
+### Documentação da API
+A documentação da API está disponível em [http://localhost:8000/docs/api](http://localhost:8000/docs/api)
+
 ### Usuário Padrão
 O sistema cria um usuário padrão chamado "BRQ" com email `brq@example.com` e senha `password`.
 
