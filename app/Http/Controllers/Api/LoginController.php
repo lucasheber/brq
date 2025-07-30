@@ -1,17 +1,29 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Dedoc\Scramble\Attributes\BodyParameter;
+use Dedoc\Scramble\Attributes\HeaderParameter;
+use Dedoc\Scramble\Attributes\Parameter;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function login(Request $request)
+
+    /**
+     * Login
+     *
+     * @unauthenticated
+     */
+    #[BodyParameter('email', 'The email of the user', type: 'string', example: 'brq@example.com')]
+    #[BodyParameter('password', 'The password of the user', type: 'string', example: 'password')]
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
@@ -33,6 +45,9 @@ class LoginController extends Controller
         ], Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * Logout
+     */
     public function logout()
     {
         Auth::logout();

@@ -12,9 +12,11 @@ Route::get('/user', fn (Request $request) => $request->user())->middleware('auth
 // Login Routes
 Route::prefix('login')->group(function (): void {
     Route::post('/', [App\Http\Controllers\Api\LoginController::class, 'login'])->name('login');
-    Route::post('/logout', [App\Http\Controllers\Api\LoginController::class, 'logout'])->name('logout');
 })->middleware('guest');
 
+ Route::post('/login/logout', [App\Http\Controllers\Api\LoginController::class, 'logout'])
+    ->middleware('auth:sanctum')
+    ->name('logout');
 // --
 // Transaction Routes
 Route::prefix('transactions')->middleware('auth:sanctum')->group(function (): void {

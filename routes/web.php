@@ -4,4 +4,7 @@ declare(strict_types = 1);
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => view('welcome'));
+// Redirect root to the API documentation
+Route::get('/', function () {
+    return redirect('/docs/api');
+});
